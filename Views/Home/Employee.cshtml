@@ -1,0 +1,242 @@
+﻿
+@{
+    ViewBag.Title = "Employee";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Review Employee Medical Request</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>PEC MRS</title>
+
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!--owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+    <!-- font awesome style -->
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- nice select -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+    <!-- datepicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+    <!-- Custom styles for this template -->
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="~/Content/css/responsive.css" rel="stylesheet" />
+    <style>
+        .status-approved {
+            color: green;
+        }
+
+        .status-rejected {
+            color: red;
+        }
+
+        .status-forwarded {
+            color: blue;
+        }
+
+        .status-in-progress {
+            color: orange;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .modal-header, .modal-footer {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .modal-footer {
+            border-top: 1px solid #ddd;
+            text-align: right;
+        }
+
+        .modal-body {
+            padding: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .form-group input, .form-group select {
+                width: 100%;
+                padding: 8px;
+                box-sizing: border-box;
+            }
+
+        .view-button, .add-button {
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .add-button {
+            color: #ffffff; /* White text color */
+            background-color: #252525; /* Button background color */
+            border: none; /* Remove default border */
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px; /* Adjust padding as needed */
+            font-size: 16px; /* Adjust font size as needed */
+            text-align: center;
+            cursor: pointer;
+        }
+
+            .add-button:hover {
+                background-color: #333333; /* Darker shade for hover effect */
+                color: #ffffff; /* Ensure text color remains white on hover */
+            }
+    </style>
+</head>
+<body>
+    <section class="ftco-section book_section layout_padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="heading_container heading_center">
+                    <h2>
+                        Employee <span>Dashboard</span>
+                    </h2>
+                </div>
+            </div>
+            <a href="/Home/EmployeeRequest" class="btn add-button">Add New Request</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Search input field -->
+                    <div class="mb-3" style="padding-top: 10px;">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search for names...">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="claimsTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Sr.</th>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Relation</th>
+                                    <th scope="col">Treatment</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View</th>
+                                </tr>
+                            </thead>
+                            <tbody id="requestTable">
+                                <!-- Dynamic content will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for detailed view -->
+            <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="detailModalLabel">Request Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Employee Name:</strong> <span id="modalEmployeeName"></span></p>
+                            <p><strong>Patient Name:</strong> <span id="modalPatientName"></span></p>
+                            <p><strong>Relation:</strong> <span id="modalRelation"></span></p>
+                            <p><strong>Treatment:</strong> <span id="modalTreatment"></span></p>
+                            <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+                            <p><strong>Remarks:</strong> <span id="modalRemarks"></span></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function () {
+            const requests = [
+                { serial: 1, patientName: 'John Doe', relation: 'Brother', treatment: 'Indoor', status: 'approved', remarks: '' },
+                { serial: 2, patientName: 'Jane Smith', relation: 'Sister', treatment: 'Outdoor', status: 'forwarded', remarks: 'Forwarded to medical officer.' },
+                { serial: 3, patientName: 'Tom Brown', relation: 'Friend', treatment: 'Prolong', status: 'rejected', remarks: 'Insurance claim not approved.' },
+                { serial: 4, patientName: 'Lisa White', relation: 'Mother', treatment: 'Indoor', status: 'in-progress', remarks: '' },
+            ];
+
+            const requestTable = $('#requestTable');
+            const detailModal = $('#detailModal');
+
+            // Populate the table
+            function populateTable() {
+                requestTable.empty(); // Clear existing rows
+                requests.forEach(request => {
+                    const row = `<tr>
+                            <td>${request.serial}</td>
+                            <td>${request.patientName}</td>
+                            <td>${request.relation}</td>
+                            <td>${request.treatment}</td>
+                            <td class="status-${request.status}">${request.status.charAt(0).toUpperCase() + request.status.slice(1)}</td>
+                            <td><button class="btn btn-info view-button" data-toggle="modal" data-target="#detailModal" data-request='${JSON.stringify(request)}'>View</button></td>
+                        </tr>`;
+                    requestTable.append(row);
+                });
+            }
+
+            // Show details in modal
+            requestTable.on('click', '.view-button', function () {
+                const request = $(this).data('request');
+                $('#modalEmployeeName').text('Employee Name'); // Adjust as needed
+                $('#modalPatientName').text(request.patientName);
+                $('#modalRelation').text(request.relation);
+                $('#modalTreatment').text(request.treatment);
+                $('#modalStatus').text(request.status.charAt(0).toUpperCase() + request.status.slice(1));
+                $('#modalRemarks').text(request.remarks);
+            });
+
+            // Filter table
+            $('#searchInput').on('keyup', function () {
+                const value = $(this).val().toLowerCase();
+                $('#requestTable tr').filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+
+            // Initialize table
+            populateTable();
+        });
+    </script>
+</body>
+</html>
+
+

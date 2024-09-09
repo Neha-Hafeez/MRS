@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Review Employee Medical Request</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script defer src="js/table-filter.js"></script>
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.7/umd/popper.min.js"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script defer src="js/main.js"></script>
+    <script defer src="~/Scripts/table-filter.js"></script>
+    <script defer src="~/Scripts/request_status.js"></script>
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>PEC MRS</title>
+
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!--owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+    <!-- font awesome style -->
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- nice select -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+    <!-- datepicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+    <!-- Custom styles for this template -->
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="~/Content/css/responsive.css" rel="stylesheet" />
+    <style>
+        .review-section {
+            margin-top: 20px;
+        }
+
+        .details-button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <section class="ftco-section book_section layout_padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="heading_container heading_center">
+                    <h2>
+                        Review Employee <span>Medical Request</span>
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Search input field -->
+                    <div class="mb-3">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search for names...">
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="claimsTable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Sr.</th>
+                                    <th scope="col">Employee Name</th>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Relation</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>John Smith</td>
+                                    <td>Jane Smith</td>
+                                    <td>Spouse</td>
+                                    <td><span style="color: red;">Pending</span></td>
+                                    <td>
+                                        <button type="button" class="btn btn-info details-button" data-toggle="modal" data-target="#requestDetailsModal" data-id="1" style="margin-left: 0px;margin-right: 0px;">Details</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Emily Davis</td>
+                                    <td>Michael Davis</td>
+                                    <td>Son</td>
+                                    <td><span style="color: green;">Approved</span></td>
+                                    <td>
+                                        <button type="button" class="btn btn-info details-button" data-toggle="modal" data-target="#requestDetailsModal" data-id="2" style="margin-left: 0px;margin-right: 0px;">Details</button>
+                                    </td>
+                                </tr>
+                                <!-- More rows as needed -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Request Details Modal -->
+    <div class="modal fade" id="requestDetailsModal" tabindex="-1" role="dialog" aria-labelledby="requestDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="requestDetailsModalLabel">Request Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Request details will be populated here dynamically -->
+                    <p>Request forwarded by Head of Department</p>
+                    <p><strong>Employee Name:</strong> <span id="employeeName"></span></p>
+                    <p><strong>Patient Name:</strong> <span id="patientName"></span></p>
+                    <p><strong>Relation:</strong> <span id="relation"></span></p>
+                    <p><strong>Request Date:</strong> <span id="requestDate"></span></p>
+                    <p><strong>Amount Requested:</strong> <span id="amountRequested"></span></p>
+                    <p><strong>View Attachment:</strong> <a href="#" id="attachmentLink" target="_blank">Click here to view</a></p>
+                    <button type="button" class="btn btn-primary forward-button" data-id="2">Forward</button>
+                    <button type="button" class="btn btn-danger reject-button" data-toggle="modal" data-target="#rejectRequestModal" data-id="1">Reject</button>
+
+                    <!-- Additional details can be added as needed -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forward Request Modal -->
+    <div class="modal fade" id="forwardRequestModal" tabindex="-1" role="dialog" aria-labelledby="forwardRequestModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="forwardRequestModalLabel">Forward Request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="forwardRequestForm">
+                        <div class="form-group">
+                            <label for="forwardTo">Forward To:</label>
+                            <select class="form-control" id="forwardTo" required>
+                                <option value="">Select...</option>
+                                <option value="Registrar">Registrar</option>
+                                <option value="otherDepartment">Other Department</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="forwardRemarks">Remarks:</label>
+                            <textarea class="form-control" id="forwardRemarks" rows="3" required></textarea>
+                        </div>
+                        <input type="hidden" id="requestIdToForward">
+                        <button type="submit" class="btn btn-primary">Forward</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Reject Request Modal -->
+    <div class="modal fade" id="rejectRequestModal" tabindex="-1" role="dialog" aria-labelledby="rejectRequestModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rejectRequestModalLabel">Reject Request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="rejectRequestForm">
+                        <div class="form-group">
+                            <label for="rejectRemarks">Rejection Remarks:</label>
+                            <textarea class="form-control" id="rejectRemarks" rows="3" required></textarea>
+                        </div>
+                        <input type="hidden" id="requestIdToReject">
+                        <button type="submit" class="btn btn-danger">Reject</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

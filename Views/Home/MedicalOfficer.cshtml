@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Treatment Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .readonly {
+            background-color: #d8f5f1;
+        }
+
+        table, th, td {
+            border: 1px solid #dee2e6;
+            border-collapse: collapse;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th, td {
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <section class="book_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <form id="treatmentForm">
+                        <div class="heading_container heading_center">
+                            <h2>Medical Reimbursement <span> Request</span></h2>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-4">
+                                <label for="OutputPatientName">Patient Name</label>
+                                <input type="text" class="form-control" id="OutputPatientName" placeholder="" readonly>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="OutputEmployeeName">Employee Name</label>
+                                <input type="text" class="form-control" id="OutputEmployeeName" placeholder="" readonly>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="OutputRName">Relationship</label>
+                                <input type="text" class="form-control" id="OutputRName" placeholder="" readonly>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="treatmentType">Treatment Type</label>
+                                <select class="form-control" id="treatmentType" name="treatmentType" onchange="toggleFields()">
+                                    <option value="">Select Treatment</option>
+                                    <option value="indoor">Indoor</option>
+                                    <option value="outdoor">Outdoor</option>
+                                    <option value="prolong">Prolong</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Indoor Fields -->
+                        <div id="indoorFields" class="form-row hidden">
+                            <div class="form-group col-lg-12">
+                                <table class="table table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Applied Amount (Rs.)</th>
+                                            <th>Approved Amount (Rs.)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Consultation Fees</td>
+                                            <td><input type="text" class="form-control readonly" id="consultationApplied" value="1000" readonly></td>
+                                            <td><input type="number" class="form-control" id="consultationApproved" value="0" oninput="calculateTotal('indoor')"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pharmacy Fees</td>
+                                            <td><input type="text" class="form-control readonly" id="pharmacyApplied" value="500" readonly></td>
+                                            <td><input type="number" class="form-control" id="pharmacyApproved" value="0" oninput="calculateTotal('indoor')"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Investigation Fees</td>
+                                            <td><input type="text" class="form-control readonly" id="investigationApplied" value="2000" readonly></td>
+                                            <td><input type="number" class="form-control" id="investigationApproved" value="0" oninput="calculateTotal('indoor')"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Outdoor Fields -->
+                        <div id="outdoorFields" class="form-row hidden">
+                            <div class="form-group col-lg-12">
+                                <table class="table table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Applied Amount (Rs.)</th>
+                                            <th>Approved Amount (Rs.)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Consultation Fees</td>
+                                            <td><input type="text" class="form-control readonly" id="consultationAppliedOutdoor" value="1000" readonly></td>
+                                            <td><input type="number" class="form-control" id="consultationApprovedOutdoor" value="0" oninput="calculateTotal('outdoor')"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Investigation Fees</td>
+                                            <td><input type="text" class="form-control readonly" id="investigationAppliedOutdoor" value="2000" readonly></td>
+                                            <td><input type="number" class="form-control" id="investigationApprovedOutdoor" value="0" oninput="calculateTotal('outdoor')"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Prolong Fields -->
+                        <div id="prolongFields" class="form-row hidden">
+                            <div class="form-group col-lg-12">
+                                <table class="table table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Applied Amount (Rs.)</th>
+                                            <th>Approved Amount (Rs.)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Consultation Fees</td>
+                                            <td><input type="text" class="form-control readonly" id="consultationAppliedProlong" value="1000" readonly></td>
+                                            <td><input type="number" class="form-control" id="consultationApprovedProlong" value="0" oninput="calculateTotal('prolong')"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pharmacy Fees</td>
+                                            <td><input type="text" class="form-control readonly" id="pharmacyAppliedProlong" value="500" readonly></td>
+                                            <td><input type="number" class="form-control" id="pharmacyApprovedProlong" value="0" oninput="calculateTotal('prolong')"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Total Charges -->
+                        <div class="form-group col-lg-4" style="padding-left: 0px; padding-right: 0px;">
+                            <label for="totalAppliedCharges">Total Applied Charges (Rs.):</label>
+                            <input type="text" class="form-control" id="totalAppliedCharges" value="0" readonly>
+                        </div>
+                        <div class="form-group col-lg-4" style="padding-left: 0px; padding-right: 0px;">
+                            <label for="totalApprovedCharges">Total Approved Charges (Rs.):</label>
+                            <input type="text" class="form-control" id="totalApprovedCharges" value="0" readonly>
+                        </div>
+                        <!-- Remarks Section -->
+                        <div class="form-group col-lg-12" style="padding-left: 0px; padding-right: 0px";>
+                            <label for="remarks">Remarks</label>
+                            <textarea class="form-control" id="remarks" rows="4" placeholder="Enter any additional information or remarks here..."style="padding-top: 10px;"></textarea>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function toggleFields() {
+            var treatmentType = document.getElementById("treatmentType").value;
+            var indoorFields = document.getElementById("indoorFields");
+            var outdoorFields = document.getElementById("outdoorFields");
+            var prolongFields = document.getElementById("prolongFields");
+
+            indoorFields.classList.add("hidden");
+            outdoorFields.classList.add("hidden");
+            prolongFields.classList.add("hidden");
+
+            if (treatmentType === "indoor") {
+                indoorFields.classList.remove("hidden");
+            } else if (treatmentType === "outdoor") {
+                outdoorFields.classList.remove("hidden");
+            } else if (treatmentType === "prolong") {
+                prolongFields.classList.remove("hidden");
+            }
+
+            resetFields();
+        }
+
+        function calculateTotal(type) {
+            var totalApproved = 0;
+            var totalApplied = 0;
+
+            if (type === "indoor") {
+                totalApproved += parseFloat(document.getElementById("consultationApproved").value) || 0;
+                totalApplied += parseFloat(document.getElementById("consultationApplied").value) || 0;
+                totalApproved += parseFloat(document.getElementById("pharmacyApproved").value) || 0;
+                totalApplied += parseFloat(document.getElementById("pharmacyApplied").value) || 0;
+                totalApproved += parseFloat(document.getElementById("investigationApproved").value) || 0;
+                totalApplied += parseFloat(document.getElementById("investigationApplied").value) || 0;
+            } else if (type === "outdoor") {
+                totalApproved += parseFloat(document.getElementById("consultationApprovedOutdoor").value) || 0;
+                totalApplied += parseFloat(document.getElementById("consultationAppliedOutdoor").value) || 0;
+                totalApproved += parseFloat(document.getElementById("investigationApprovedOutdoor").value) || 0;
+                totalApplied += parseFloat(document.getElementById("investigationAppliedOutdoor").value) || 0;
+            } else if (type === "prolong") {
+                totalApproved += parseFloat(document.getElementById("consultationApprovedProlong").value) || 0;
+                totalApplied += parseFloat(document.getElementById("consultationAppliedProlong").value) || 0;
+                totalApproved += parseFloat(document.getElementById("pharmacyApprovedProlong").value) || 0;
+                totalApplied += parseFloat(document.getElementById("pharmacyAppliedProlong").value) || 0;
+            }
+
+            document.getElementById("totalApprovedCharges").value = totalApproved.toFixed(0);
+            document.getElementById("totalAppliedCharges").value = totalApplied.toFixed(0);
+        }
+
+        function resetFields() {
+            var inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.value = 0;
+            });
+            document.getElementById("totalApprovedCharges").value = "0";
+            document.getElementById("totalAppliedCharges").value = "0";
+        }
+    </script>
+</body>
+</html>

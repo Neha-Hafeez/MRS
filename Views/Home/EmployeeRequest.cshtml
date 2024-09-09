@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>PEC MRS</title>
+
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!--owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+    <!-- font awesome style -->
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- nice select -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+    <!-- datepicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css">
+    <!-- Custom styles for this template -->
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="~/Content/css/responsive.css" rel="stylesheet" />
+</head>
+<body>
+    <section class="book_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <form>
+                        <div class="heading_container heading_center">
+                            <h2>
+                                Medical Reimbursement <span> Request</span>
+                            </h2>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-lg-4">
+                                <label for="inputPatientName">Patient Name</label>
+                                <input type="text" class="form-control" id="inputPatientName" placeholder="">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputRelation">Relation</label>
+                                <select name="" class="form-control wide" id="inputRelation">
+                                    <option value="">Select Relation</option>
+                                    <option value="Son">Son</option>
+                                    <option value="Daughter">Daughter</option>
+                                    <option value="Spouse">Spouse</option>
+                                    <option value="Father">Father</option>
+                                    <option value="Mother">Mother</option>
+                                </select>
+                            </div>
+                            <!-- Treatment Selection -->
+                            <div class="form-group col-lg-4">
+                                <label for="inputTreatment">Treatment</label>
+                                <select name="" class="form-control wide" id="inputTreatment">
+                                    <option value="">Select Treatment</option>
+                                    <option value="Indoor">Indoor</option>
+                                    <option value="Outdoor">Outdoor</option>
+                                    <option value="Prolong">Prolong</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <!-- Sections for each treatment type -->
+                            <div id="indoorSection" class="treatment-section" style="display:none;">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-4">
+                                        <label for="inputConsultationFeeIndoor">Consultation Fee</label>
+                                        <input type="number" class="form-control" id="inputConsultationFeeIndoor" placeholder="">
+                                    </div>
+                                    <div class="form-group col-lg-4">
+                                        <label for="inputPharmacyChargesIndoor">Pharmacy Charges</label>
+                                        <input type="number" class="form-control" id="inputPharmacyChargesIndoor" placeholder="">
+                                    </div>
+                                    <div class="form-group col-lg-4">
+                                        <label for="inputInvestigationIndoor">Investigation</label>
+                                        <input type="number" class="form-control" id="inputInvestigationIndoor" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="outdoorSection" class="treatment-section" style="display:none;">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="inputConsultationFeeOutdoor">Consultation Fee</label>
+                                        <input type="number" class="form-control" id="inputConsultationFeeOutdoor" placeholder="">
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label for="inputInvestigationOutdoor">Investigation</label>
+                                        <input type="number" class="form-control" id="inputInvestigationOutdoor" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="prolongSection" class="treatment-section" style="display:none;">
+                                <div class="form-row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="inputConsultationFeeProlong">Consultation Fee</label>
+                                        <input type="number" class="form-control" id="inputConsultationFeeProlong" placeholder="">
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label for="inputPharmacyChargesProlong">Pharmacy Charges</label>
+                                        <input type="number" class="form-control" id="inputPharmacyChargesProlong" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Total Charges Field -->
+                            <div class="form-group col-lg-4">
+                                <label for="outputTotalCharges">Total Charges</label>
+                                <input type="number" class="form-control" id="outputTotalCharges" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <!-- Button Container -->
+                            <div class="form-group">
+                                <div class="btn-container">
+                                    <button type="button" class="btn btn-save">Save</button>
+                                </div>
+                                <div class="btn-container">
+                                    <button type="button" class="btn btn-approval">Forward for Approval</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Link to external JS file -->
+                    <script src="~/Scripts/JavaScript.js"></script>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+
+<!-- end book section -->
